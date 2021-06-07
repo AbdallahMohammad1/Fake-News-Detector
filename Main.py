@@ -11,4 +11,11 @@ Data = pd.read_csv("news.csv")
 labels = Data.label
 x_train,x_test,y_train,y_test=train_test_split(Data['text'], labels, test_size=0.2, random_state=7)
 
+tfidf_vectorizer=TfidfVectorizer(max_df=0.7)
+
+tfidf_train=tfidf_vectorizer.fit_transform(x_train)
+tfidf_test=tfidf_vectorizer.transform(x_test)
+
+pac=PassiveAggressiveClassifier(max_iter=1000)
+pac.fit(tfidf_train,y_train)
 
